@@ -130,6 +130,9 @@ button {
   /* border: none; */
   padding: 0px 5px 0px 5px;
 }
+button:active {
+  border-color: #58d68d;
+}
 
 footer {
   z-index: -1;
