@@ -77,6 +77,7 @@ reset.onclick = () => {
     clockRunning = false;
     time = 0;
     clock.textContent = "00:00:00";
+    timeConverter(0);
     
     // console.log('this is a test');
 }
