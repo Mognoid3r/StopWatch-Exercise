@@ -12,8 +12,6 @@
 
 // • Make sure it is responsive.
 
-
-
 //variables to manage 
 let clock = document.getElementById("clock");
 let start = document.getElementById("start");
