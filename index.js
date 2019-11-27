@@ -17,7 +17,11 @@ let clock = document.getElementById("clock");
 let start = document.getElementById("start");
 let pause = document.getElementById("pause");
 let reset = document.getElementById("reset");
+let progressValue = document.querySelector('.progress__value');
 
+// variables for radial progress bar
+let RADIUS = 54;
+let CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 
 //prevent clock from being sped up unintentionally 
 let clockRunning = false;
@@ -40,6 +44,10 @@ const timeConverter = (t) => {
     let minutes = Math.floor(t / 60);
     let seconds = t - (minutes * 60);
 
+    let progress = t / 60;
+    let dashoffset = CIRCUMFERENCE * (1 - progress);
+
+
     if (seconds < 10) {
         seconds = "0" + seconds;
     }
@@ -56,12 +64,14 @@ const timeConverter = (t) => {
     else if (hours < 10) {
         hours = "0" + hours;
     }
-    return hours + ":" + minutes + ":" + seconds;
-    // return minutes + ":" + seconds;
+    
+    return (progressValue.style.strokeDashoffset = dashoffset),
+    hours + ":" + minutes + ":" + seconds;    
+
 
 }
 
-//this will reset the counter
+
 reset.onclick = () => {
     
     clockRunning = false;
@@ -77,7 +87,8 @@ start.onclick = () => {
     if (!clockRunning) {
         intervalId = setInterval(count, 1000);
         clockRunning = true;
-    }
+
+    } 
 }
 
 //this will pause the counter
@@ -86,4 +97,12 @@ pause.onclick = () => {
     clearInterval(intervalId);
     clockRunning = false;
 }
+
+
+start.addEventListener('input', function(event) {
+    progress(event.target.valueAsNumber);
+});
+
+progressValue.style.strokeDasharray = CIRCUMFERENCE;
+progress(60);
 
